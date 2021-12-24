@@ -1,10 +1,9 @@
-import React from 'react'
-import Button from '../components/Button'
+import HeroSlide from '../components/HeroSlide'
 
 const Home = () => {
     return (
         <div >
-            Hello World!
+            <HeroSlide/>
        </div>
     )
 }
