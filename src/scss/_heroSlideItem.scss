@@ -9,9 +9,9 @@
     content: "";
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.534);
     top: 0;
     left: 0;
+    @include overlay;
   }
   &__content {
     @include flex(center, space-between);

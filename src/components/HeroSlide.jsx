@@ -22,13 +22,11 @@ const HeroSlide = () => {
     useEffect(() => {
         const getMovies = async () => {
             const params = {}
-            try {
+           
                 const response = await tmdbApi.getMoviesList(movieType.popular,{params})
                 setMovieItems(response.results.slice(0,3))
-            }
-            catch {
-                console.log('error getting movies list');
-            }
+            
+           
         }
         getMovies()
     }, []);
@@ -71,11 +69,9 @@ const background = apiConfig.originalImage(data.backdrop_path)
 const setModalActive = async () => {
     const modal = document.querySelector(`#modal__${data.id}`);
     
-    const videos = await tmdbApi.getVideos(category.movie, data.id);
-
-console.log(videos);
-    if (videos.results.length > 0) {
-        const videSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
+    const responseVideos = await tmdbApi.getVideos(category.movie, data.id);
+    if (responseVideos.results.length > 0) {
+        const videSrc = 'https://www.youtube.com/embed/' + responseVideos.results[1].key;
 
         modal.querySelector('.modal__content iframe').setAttribute('src', videSrc);
     } else {
@@ -98,7 +94,7 @@ console.log(videos);
             <div className="hero-slide__item__content__info__title">{data.title}</div>
             <div className="hero-slide__item__content__info__overview">{data.overview}</div>
             <div className="hero-slide__item__content__info__button">
-                    <Button className="me-3" onClick={()=> navigate('/move/' + data.id)}>Watch now</Button>
+                    <Button className="me-3" onClick={()=> navigate('/move/' + data.id)}>Watch detail</Button>
                     <OutlineButton onClick={setModalActive}>Watch trailer</OutlineButton>
             </div>
         </div>

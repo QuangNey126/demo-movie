@@ -1,8 +1,6 @@
-import {Link} from 'react-router-dom'
 import {useState,useEffect} from 'react'
 
-import apiConfig from '../api/apiConfig'
-import tmdbApi,{movieType,tvType,category} from '../api/tmdbApi'
+import tmdbApi,{category} from '../api/tmdbApi'
 
 import {Swiper,SwiperSlide} from 'swiper/react'
 
@@ -30,7 +28,7 @@ useEffect(() => {
         setItems(response.results)
     }
     getItems()
-}, []);
+}, [props.category,props.id,props.type]);
     return (
         <div className="movie-list">
         <Swiper

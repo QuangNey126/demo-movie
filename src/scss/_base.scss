@@ -40,6 +40,12 @@ section {
   margin-top: 3rem;
 }
 
+.layoutContent {
+  margin-top: $header-height;
+  @include mobile {
+    margin-top: $header-shrink-height;
+  }
+}
 .section__header {
   @include flex(center, space-between);
 }
