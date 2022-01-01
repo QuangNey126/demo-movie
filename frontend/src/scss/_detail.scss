@@ -1,0 +1,93 @@
+.banner {
+  height: 50vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    @include overlay;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(to top, $body-bg, rgba($black, 0));
+  }
+}
+
+.movie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  @include flex(flex-start, space-between);
+  position: relative;
+  margin-top: -200px;
+  &__poster {
+    flex: 1;
+    @include mobile {
+      display: none;
+    }
+    &__img {
+      padding-top: 165%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: $border-radius;
+    }
+  }
+  &__info {
+    width: 70%;
+    padding-left: 3rem;
+    @include mobile {
+      width: 100%;
+      padding-left: 0;
+    }
+    & > * {
+      margin-bottom: 2rem;
+    }
+
+    &__title {
+      font-size: 3.5rem;
+      line-height: 1.2;
+    }
+    &__genres {
+      .item {
+        border: 2px solid white;
+        padding: 0.5rem 1rem;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+      .item ~ .item {
+        margin-left: 1rem;
+      }
+    }
+    &__overview {
+    }
+    &__cast {
+      .cast {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+      }
+      .cast-item {
+        &__img {
+          padding-top: 160px;
+          background-size: cover;
+          margin-bottom: 0.5rem;
+        }
+        &__name {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

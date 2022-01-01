@@ -1,0 +1,36 @@
+.search {
+  @include flex(center, center);
+  position: relative;
+  width: 80%;
+  margin: auto;
+  @include mobile {
+    margin-top: 7rem;
+  }
+}
+
+.search__input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  outline: none;
+  &:focus {
+    border: 1px solid $main-color;
+  }
+}
+.search__btn {
+  position: absolute;
+  right: 0;
+  border: none;
+  outline: none;
+  padding: 12px 32px;
+  border-radius: 50px;
+  background-color: $main-color;
+  color: $white;
+  border: 1px solid $main-color;
+  box-shadow: 0px 0px 7px 4px #00ff154d;
+  &:hover {
+    box-shadow: 0px 0px 7px 8px #00ff154d;
+    transition: 0.3s;
+  }
+}
