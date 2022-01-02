@@ -29,7 +29,21 @@ const Register = () => {
         })
     }
 
-  
+    const handleBlurInput = () => {
+        const valueEmail = inputValue.email
+        const valuePassword = inputValue.password
+        const valueConfirmPassword = inputValue.confirmPassword
+        if(!valueEmail){
+            setValidEmail(false)
+        }  
+        if(!valuePassword) {
+            setValidPassword(false)
+        }
+        if(!valueConfirmPassword) {
+            setValidConfirmPassword(false)
+        }
+      }
+    
 
   useEffect(() => {
       if(inputValue.email) {
@@ -75,7 +89,7 @@ const Register = () => {
                     value={inputValue.email}
                     onChange={handleInput}
                     // onInput={handleValidInput}
-                    // onBlur={handleBlurInput}
+                    onBlur={handleBlurInput}
                     />
                     <div className="login__error">
                         {validEmail ? '' : <span className="error-message">Please enter a valid email or phone number.</span> }
@@ -91,7 +105,7 @@ const Register = () => {
                     value={inputValue.password}
                     onChange={handleInput}
                     // onInput={handleValidInput}
-                    // onBlur={handleBlurInput}
+                    onBlur={handleBlurInput}
                     />
                  <div className="login__error">
                       {validPassword ? '' : <span className="error-message">Your password must contain between 4 and 60 characters.</span> }
@@ -105,7 +119,8 @@ const Register = () => {
                     value={inputValue.confirmPassword}
                     onChange={handleInput}
                     // onInput={handleValidConfirmPassword}
-                    // onBlur={handleBlurConfirmPassword}
+                    onBlur={handleBlurInput}
+
                     />
                  <div className="login__error">
                       {validConfirmPassword ? '' : <span className="error-message">Your confirm password and password must be match.</span> }
