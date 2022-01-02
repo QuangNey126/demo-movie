@@ -4,6 +4,8 @@ import Button from '../components/Button'
 
 const Register = () => {
 
+ 
+
     const [inputValue, setInputValue] = useState({
         email:'',
         password:'',
@@ -115,7 +117,7 @@ const Register = () => {
             <div className="login__register">
                 <div className="login__register__txt">
                     Back to
-                    <Link className='ms-2 text-white' to='/register'>Sign in</Link>
+                    <Link className='ms-2 text-white' to='/login'>Sign in</Link>
                 </div>
             </div>
             </div>

@@ -94,7 +94,7 @@ const setModalActive = async () => {
             <div className="hero-slide__item__content__info__title">{data.title}</div>
             <div className="hero-slide__item__content__info__overview">{data.overview}</div>
             <div className="hero-slide__item__content__info__button">
-                    <Button className="me-3" onClick={()=> navigate('/move/' + data.id)}>Watch detail</Button>
+                    <Button className="me-3" onClick={()=> navigate('/movie/' + data.id)}>Watch detail</Button>
                     <OutlineButton onClick={setModalActive}>Watch trailer</OutlineButton>
             </div>
         </div>
