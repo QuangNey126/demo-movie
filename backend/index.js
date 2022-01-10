@@ -144,7 +144,7 @@ app.put('/purchase', async (req, res) => {
     var mailOptions = {
         from: 'quochuy11081999@gmail.com',
         to: email,
-        subject: 'Movie purchased',
+        subject: 'The movie has been purchased',
         text: `
         id: ${idMovie},
         name movie : ${nameMovie},
@@ -214,7 +214,7 @@ app.put('/rent', async (req, res) => {
     var mailOptions = {
         from: 'quochuy11081999@gmail.com',
         to: email,
-        subject: 'Movie rented',
+        subject: 'The movie has been rented',
         text: `
         id: ${idMovie},
         name movie : ${nameMovie},
