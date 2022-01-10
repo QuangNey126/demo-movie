@@ -1,0 +1,48 @@
+.modalNotice {
+  @include flex(flex-start, center);
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: rgba($color: $black, $alpha: 0.4);
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    padding: 2rem;
+    background-color: $body-bg;
+    width: 30%;
+    opacity: 0;
+    transform: translateY(-250px);
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    position: relative;
+    border-radius: $border-radius;
+    top: 10%;
+    box-shadow: 0 0 20px $main-color;
+
+    @include tablet {
+      width: 80%;
+    }
+    &__title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+    &__btn {
+      text-align: right;
+    }
+  }
+
+  &.active &__content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

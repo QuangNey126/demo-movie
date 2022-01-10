@@ -1,14 +1,17 @@
-import {Link} from 'react-router-dom'
-import {useState,useEffect} from 'react'
+import {Link,useNavigate} from 'react-router-dom'
+import {useState,useEffect,useContext} from 'react'
 import Button from '../components/Button'
+import apiUser,{addJwt} from '../api/apiUser'
+import AuthContext from '../context/auth'
 
-const Login = () => {
 
+const Login = (props) => {
+    const navigate = useNavigate()
+    const authCtx = useContext(AuthContext)
     const [inputValue, setInputValue] = useState({
         email:'',
         password:'',
     })
-console.log(inputValue);
     const [validEmail, setValidEmail] = useState(true)
     const [validPassword, setValidPassword] = useState(true)
 
@@ -23,13 +26,6 @@ console.log(inputValue);
         })
     }
 
-//   const handleValidInput = () => {
-//     const valueEmail = inputValue.email
-//     const valuePassword = inputValue.password
-//     setValidEmail(valueEmail.includes('@') && valueEmail.length >=4)
-//     setValidPassword(valuePassword.length >= 4)
-
-//   }
 
   const handleBlurInput = () => {
     const valueEmail = inputValue.email
@@ -44,6 +40,7 @@ console.log(inputValue);
   }
 
   useEffect(() => {
+      
       if(inputValue.email) {
           setValidEmail(inputValue.email.includes('@') && inputValue.email.length >=4)
       }
@@ -53,18 +50,43 @@ console.log(inputValue);
       }
   }, [inputValue]);
 
-const handleSubmit = (e) => {
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, []);
+
+
+const handleSubmit = async (e) => {
     e.preventDefault()
     if(!inputValue.email){
         setValidEmail(false)
     }
-    if(!inputValue.password){
+    if(!inputValue.password ){
         setValidPassword(false)
     }
-    if(!inputValue.email || !inputValue.email.includes('@') || !inputValue.password) return
-    console.log('asd');
+    if(!inputValue.email || !inputValue.email.includes('@') || !inputValue.password ) return
+
+    
+try {
+    const response = await apiUser.post('/login', {
+         email: inputValue.email,
+         password: inputValue.password
+     })
+        authCtx.setUser(response.data.username)
+        localStorage.setItem('token',response.data.token)
+        addJwt(response.data.token)
+        console.log(response);
+}    
+catch(err) {
+    console.log(err);
 }
 
+const token = localStorage.getItem('token')
+if(token) {
+    navigate('/')
+
+}
+
+}
     return (
         <div className="login">
             <div className="login__overlay"></div>
@@ -75,14 +97,14 @@ const handleSubmit = (e) => {
                     <input
                      name='email' 
                     type="text" 
-                    placeholder="Email or phone number"
+                    placeholder="Email"
                     value={inputValue.email}
                     onChange={handleInput}
                     
                     onBlur={handleBlurInput}
                     />
                     <div className="login__error">
-                        {validEmail ? '' : <span className="error-message">Please enter a valid email or phone number.</span> }
+                        {validEmail ? '' : <span className="error-message">Please enter a valid email.</span> }
                  
                       
                     </div>

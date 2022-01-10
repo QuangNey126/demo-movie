@@ -1,0 +1,35 @@
+.alert {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba($color: $black, $alpha: 0.4);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    position: absolute;
+    padding: 0 3rem;
+    @include flex(flex-start, center);
+    flex-direction: column;
+    border-radius: 30px;
+    top: 10%;
+    box-shadow: 0 0 20px #8ac43f5e;
+    height: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #181818;
+    color: $main-color;
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+}

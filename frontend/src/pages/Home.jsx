@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import HeroSlide from '../components/HeroSlide'
-import Button,{OutlineButton} from '../components/Button'
+import {OutlineButton} from '../components/Button'
 import MovieList from '../components/MovieList'
 import {movieType,tvType,category} from '../api/tmdbApi'
 

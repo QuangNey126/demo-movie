@@ -1,7 +1,8 @@
-import {useRef,useEffect} from 'react'
+import {useRef,useEffect,useContext} from 'react'
 import {Link,useLocation,useNavigate} from 'react-router-dom'
 import Logo from '../assets/logo.png'
 import Button from '../components/Button'
+import AuthContext from '../context/auth'
 
 const Header = () => {
 
@@ -18,12 +19,18 @@ const headerData = [
         text:'Tv Show',
         path:'/tv'
     },
+    {
+        text:'User',
+        path:'/user'
+    },
 ]
 
 const {pathname} = useLocation()
 const active = headerData.findIndex(i=>i.path === pathname)
 const headerRef = useRef()
 const navigate = useNavigate()
+const authCtx = useContext(AuthContext)
+// const [isLoading, setIsLoading] = useState()
 
 useEffect(() => {
     const scrollHeader = () => {
@@ -39,6 +46,15 @@ useEffect(() => {
     window.removeEventListener('scroll',scrollHeader)
     }
 }, []);
+
+const handleSignOut = () => {
+    localStorage.removeItem('token')
+    authCtx.setUser(null)
+    navigate('/')
+}
+
+
+
     return (
        <div className="header" ref={headerRef}>
            <div className="container">
@@ -52,7 +68,8 @@ useEffect(() => {
                     <Link to={item.path}>{item.text}</Link>
                 </li>
             })}
-            <Button onClick={()=> navigate('/login')} className='small ms-5'>Sign in</Button>
+            {/* {authCtx.user ? <div className="user">User</div> : ''} */}
+            {authCtx.user ? <Button onClick={handleSignOut} className='small ms-5'>Sign out</Button>: <Button onClick={()=> navigate('/login')} className='small ms-5'>Sign in</Button>}
         </ul>
            </div>
        </div>

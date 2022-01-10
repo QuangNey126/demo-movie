@@ -4,8 +4,7 @@ import tmdbApi,{category,movieType,tvType} from '../api/tmdbApi'
 import Card from './Card'
 import {OutlineButton} from '../components/Button'
 import Input from '../components/Input'
-
-
+import Loading from './Loading'
 
 
 const MovieLayout = (props) => {
@@ -14,7 +13,7 @@ const MovieLayout = (props) => {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [keyword, setKeyword] = useState(undefined);
-
+    const [loading, setLoading] = useState(false)
 useEffect(() => {
     const getLists = async () => {
         let response = null;
@@ -42,28 +41,33 @@ useEffect(() => {
     getLists()
 }, [props.category,keyword]);
 
-const loadMore = async () => {
-    let response = null;
-    if(keyword === undefined) {
-        const params = {
-            page:page + 1
+const loadMore = () => {
+    setLoading(true)
+    setTimeout(async () =>{
+        let response = null;
+        if(keyword === undefined) {
+            const params = {
+                page:page + 1
+            }
+            switch(props.category) {
+                case category.movie:
+                    response = await tmdbApi.getMoviesList(movieType.upcoming,{params})
+                    break;
+                default:
+                    response = await tmdbApi.getTvList(tvType.popular,{params})
+            }
+        }else {
+            const params = {
+                query: keyword,
+                page:page + 1,
+            }
+            response = await tmdbApi.search(props.category,{params})
         }
-        switch(props.category) {
-            case category.movie:
-                response = await tmdbApi.getMoviesList(movieType.upcoming,{params})
-                break;
-            default:
-                response = await tmdbApi.getTvList(tvType.popular,{params})
-        }
-    }else {
-        const params = {
-            query: keyword,
-            page:page + 1,
-        }
-        response = await tmdbApi.search(props.category,{params})
-    }
-    setItems([...items, ...response.results])
-    setPage(page + 1)
+        setItems([...items, ...response.results])
+        setPage(page + 1)
+        setLoading(false)
+    },1000)
+  
 }
 
     return (
@@ -77,7 +81,7 @@ const loadMore = async () => {
         </div>
             {page < totalPage ? 
         <div className='movie-layout__loadmore mb-5'>
-            <OutlineButton onClick={loadMore}>Load more</OutlineButton>
+           {!loading ?  <OutlineButton onClick={loadMore}>Load more</OutlineButton> : <Loading numb='2'/>}
         </div>   
          :
        null
@@ -100,7 +104,7 @@ const goToSearchPage = useCallback(
             setKeyword('')
         }
     },
-    [keyword,props.category,navigate],
+    [keyword,navigate,props],
 )
 
 

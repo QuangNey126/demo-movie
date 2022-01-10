@@ -1,0 +1,45 @@
+.user {
+  margin-top: $header-height + 4;
+  margin-bottom: 10rem;
+  &__infoo {
+    padding-bottom: 3rem;
+    border-bottom: 5px solid white;
+  }
+  &__info {
+    &__name {
+      input {
+        background-color: transparent;
+        outline: $main-color;
+        color: white;
+        padding: 0px 1rem;
+      }
+    }
+  }
+  button {
+    transform: scale(0.8);
+    margin-top: -8px;
+  }
+  &__repository {
+    &__container {
+      display: flex;
+    }
+    &__container__select {
+      width: 25%;
+
+      select {
+      }
+    }
+    &__container__card {
+      border-left: 2px solid white;
+      padding-left: 2rem;
+      flex-grow: 1;
+      .card {
+        padding-top: 28%;
+        width: 200px;
+      }
+      h5 {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}

@@ -1,22 +1,24 @@
 import {Link} from 'react-router-dom'
 import {useState,useEffect} from 'react'
 import Button from '../components/Button'
+import apiUser from '../api/apiUser'
+import Alert from './Alert'
+
 
 const Register = () => {
 
- 
-
     const [inputValue, setInputValue] = useState({
         email:'',
+        name:'',
         password:'',
         confirmPassword:''
     })
 
-    console.log(inputValue);
-
     const [validEmail, setValidEmail] = useState(true)
+    const [validName, setValidName] = useState(true)
     const [validPassword, setValidPassword] = useState(true)
     const [validConfirmPassword, setValidConfirmPassword] = useState(true)
+    const [success, setSuccess] = useState(false)
 
     const handleInput = (e) => {
         const name = e.target.name
@@ -31,10 +33,14 @@ const Register = () => {
 
     const handleBlurInput = () => {
         const valueEmail = inputValue.email
+        const valueName = inputValue.name
         const valuePassword = inputValue.password
         const valueConfirmPassword = inputValue.confirmPassword
         if(!valueEmail){
             setValidEmail(false)
+        }  
+        if(!valueName){
+            setValidName(false)
         }  
         if(!valuePassword) {
             setValidPassword(false)
@@ -43,11 +49,22 @@ const Register = () => {
             setValidConfirmPassword(false)
         }
       }
-    
+ 
 
   useEffect(() => {
+
+    // apiUser.get('/allUser').then((response) => {
+    //     console.log(response.data);
+
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
+
       if(inputValue.email) {
           setValidEmail(inputValue.email.includes('@') && inputValue.email.length >=4)
+      }
+      if(inputValue.name) {
+          setValidName(inputValue.name.length >0)
       }
       if(inputValue.password) {
           setValidPassword( inputValue.password.length >= 4)
@@ -58,11 +75,19 @@ const Register = () => {
 
   }, [inputValue]);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, []);
+  const handleSubmit = async (e) => {
         e.preventDefault()
+
+
 
         if(!inputValue.email){
             setValidEmail(false)
+        }
+        if(!inputValue.name){
+            setValidName(false)
         }
         if(!inputValue.password){
             setValidPassword(false)
@@ -71,12 +96,36 @@ const Register = () => {
             setValidConfirmPassword(false)
         }
 
-        if(!inputValue.email.includes('@') || !inputValue.email.length >=4 || !inputValue.password.length >= 4 || !inputValue.password || inputValue.confirmPassword !== inputValue.password) return
-        console.log('asd');
+        if(!inputValue.email.includes('@') || !inputValue.email.length >=4 || !inputValue.name  || !inputValue.password.length >= 4 || !inputValue.password || inputValue.confirmPassword !== inputValue.password) return
+
+        setSuccess(true)
+        setInputValue({
+            email:'',
+            name:'',
+            password:'',
+            confirmPassword:''
+        })
+        
+
+        try {
+            const response = await apiUser.post('/register', {
+                 email: inputValue.email,
+                 name: inputValue.name,
+                 password: inputValue.password
+             })
+             console.log(response);
+         
+        }    
+        catch(err) {
+            console.log(err);
+        }
+        
+     
   }
 
     return (
         <div className="login">
+            <Alert active={success} navigate={true}>registered successfully</Alert>
             <div className="login__overlay"></div>
             <div className="login__container">
             <form className="login__form">
@@ -85,17 +134,31 @@ const Register = () => {
                     <input
                      name='email' 
                     type="text" 
-                    placeholder="Email or phone number"
+                    placeholder="Email "
                     value={inputValue.email}
                     onChange={handleInput}
-                    // onInput={handleValidInput}
                     onBlur={handleBlurInput}
                     />
                     <div className="login__error">
-                        {validEmail ? '' : <span className="error-message">Please enter a valid email or phone number.</span> }
+                        {validEmail ? '' : <span className="error-message">Please enter a valid email.</span> }
                  
                       
                     </div>
+                </div>
+                <div className="login__input">
+                    <input
+                     name='name' 
+                    type="text" 
+                    placeholder="Nickname"
+                    value={inputValue.name}
+                    onChange={handleInput}
+                    />
+                           <div className="login__error">
+                        {validName ? '' : <span className="error-message">Nickname must be required.</span> }
+                 
+                      
+                    </div>
+                
                 </div>
                 <div className="login__input">
                     <input
