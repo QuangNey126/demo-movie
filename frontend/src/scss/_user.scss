@@ -4,6 +4,10 @@
   &__infoo {
     padding-bottom: 3rem;
     border-bottom: 5px solid white;
+    button {
+      transform: scale(0.8);
+      margin-top: -8px;
+    }
   }
   &__info {
     &__name {
@@ -15,24 +19,25 @@
       }
     }
   }
-  button {
-    transform: scale(0.8);
-    margin-top: -8px;
-  }
+
   &__repository {
     &__container {
       display: flex;
+      button {
+        width: 100%;
+        & ~ button {
+          margin-top: 1rem;
+        }
+      }
     }
     &__container__select {
+      padding: 0px 1rem;
       width: 25%;
-
-      select {
-      }
     }
     &__container__card {
       border-left: 2px solid white;
       padding-left: 2rem;
-      flex-grow: 1;
+      width: 75%;
       .card {
         padding-top: 28%;
         width: 200px;

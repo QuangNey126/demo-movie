@@ -39,3 +39,13 @@
     }
   }
 }
+
+.card-repository {
+  display: flex;
+  border-bottom: 1px solid #ffffff2e;
+  padding-bottom: 1.5rem;
+}
+
+.card-repository ~ .card-repository {
+  padding-top: 1.5rem;
+}

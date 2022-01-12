@@ -28,8 +28,12 @@
     transform: translateX(-50%);
     background-color: #181818;
     color: $main-color;
+    &.error {
+      color: white;
+      box-shadow: 0 0 20px rgb(184, 8, 8);
+    }
     h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
   }
 }

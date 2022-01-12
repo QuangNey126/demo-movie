@@ -1,8 +1,9 @@
-import {useRef,useEffect,useContext} from 'react'
+import {useRef,useEffect,useContext,useState} from 'react'
 import {Link,useLocation,useNavigate} from 'react-router-dom'
 import Logo from '../assets/logo.png'
 import Button from '../components/Button'
 import AuthContext from '../context/auth'
+import ModalNotice,{ModalNoticeContent} from './ModalNotice'
 
 const Header = () => {
 
@@ -30,8 +31,8 @@ const active = headerData.findIndex(i=>i.path === pathname)
 const headerRef = useRef()
 const navigate = useNavigate()
 const authCtx = useContext(AuthContext)
+const [alert, setAlert] = useState(false)
 // const [isLoading, setIsLoading] = useState()
-
 useEffect(() => {
     const scrollHeader = () => {
         if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
@@ -48,15 +49,16 @@ useEffect(() => {
 }, []);
 
 const handleSignOut = () => {
-    localStorage.removeItem('token')
-    authCtx.setUser(null)
-    navigate('/')
+    setAlert(true)
 }
 
 
 
     return (
        <div className="header" ref={headerRef}>
+            {alert ? <ModalNotice active={true}>
+                <ModalNoticeContent setAlert={setAlert}>Are you sure you want to log out?</ModalNoticeContent>
+            </ModalNotice>: ''}
            <div className="container">
            <div className="header__logo">
                <img src={Logo} alt="" />
@@ -72,6 +74,7 @@ const handleSignOut = () => {
             {authCtx.user ? <Button onClick={handleSignOut} className='small ms-5'>Sign out</Button>: <Button onClick={()=> navigate('/login')} className='small ms-5'>Sign in</Button>}
         </ul>
            </div>
+          
        </div>
     )
 }

@@ -15,7 +15,6 @@ const UserProvider = ({ children }) => {
     const [moviePurchase, setMoviePurchase] = useState([])
     const [movieRent, setMovieRent] = useState([])
     const [checkingLoginDone, setCheckingLoginDone] = useState(false)
-
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (!token) {
@@ -27,14 +26,15 @@ const UserProvider = ({ children }) => {
                 Authorization: `Bearer ${token}`
             },
         }).then((response) => {
-            // console.log('response',response);
             setAuthUser(response.data)
             addJwt(token)
         }).catch(() => {
             localStorage.removeItem('token')
         }).finally(()=> {setCheckingLoginDone(true)})
 
-
+        return () => {
+            setAuthUser(null)
+        }
 
     }, []);
 
@@ -50,27 +50,19 @@ const UserProvider = ({ children }) => {
             },
         }).then((response) => {
             setMoviePurchase(response.data[0].purchase)
-        }).catch((err) => {
-            console.log(err);
-        })
-       }, []);
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (!token) {
-            setCheckingLoginDone(true)
-            return
-        }
-        api.get('/userUpdate', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        }).then((response) => {
             setMovieRent(response.data[0].rent)
+
         }).catch((err) => {
             console.log(err);
         })
-       }, []);
 
+        return () => {
+            setMoviePurchase(null)
+            setMovieRent(null)
+        }
+
+       }, []);
+  
     if (!checkingLoginDone) {
         return ''
         // return <Loading numb=''>loading...</Loading>

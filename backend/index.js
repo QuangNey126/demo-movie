@@ -47,7 +47,7 @@ app.post("/login", async (req, res) => {
         },
         "MY_SECRET_KEY",
         {
-            expiresIn: 120 * 60,
+            expiresIn: 6000 * 60,
         }
     );
 
@@ -124,11 +124,15 @@ app.put('/purchase', async (req, res) => {
 
     const idMovie = req.body.idMovie
     const nameMovie = req.body.nameMovie
+    const overview = req.body.overview
+    const releaseDate = req.body.releaseDate
     const poster_path = req.body.poster_path
     const category = req.body.category
     const email = req.body.email
     const date = req.body.date
     const time = req.body.time
+
+    console.log(releaseDate);
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -165,6 +169,8 @@ app.put('/purchase', async (req, res) => {
     var new_info = {
         id: idMovie,
         name: nameMovie,
+        overview: overview,
+        releaseDate: releaseDate,
         poster_path: poster_path,
         category: category,
         email: email,
@@ -194,6 +200,8 @@ app.put('/rent', async (req, res) => {
 
     const idMovie = req.body.idMovie
     const nameMovie = req.body.nameMovie
+    const overview = req.body.overview
+    const releaseDate = req.body.releaseDate
     const poster_path = req.body.poster_path
     const category = req.body.category
     const email = req.body.email
@@ -235,6 +243,8 @@ app.put('/rent', async (req, res) => {
     var new_info = {
         id: idMovie,
         name: nameMovie,
+        overview: overview,
+        releaseDate: releaseDate,
         poster_path: poster_path,
         category: category,
         email: email,

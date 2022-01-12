@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useCallback} from 'react'
 import Button from '../components/Button'
 import apiUser from '../api/apiUser'
 import Alert from './Alert'
@@ -19,8 +19,55 @@ const Register = () => {
     const [validPassword, setValidPassword] = useState(true)
     const [validConfirmPassword, setValidConfirmPassword] = useState(true)
     const [success, setSuccess] = useState(false)
+    const [checkEmailExist, setCheckEmailExist] = useState(true)
+    // const [validEmail2, setValidEmail2] = useState(false)
+console.log('checkEmailExist',checkEmailExist);
+
+    useEffect(() => {
+        setCheckEmailExist(true)
+          if(inputValue.email) {
+              setValidEmail(inputValue.email.includes('@') && inputValue.email.length >=4)
+          }
+          if(inputValue.name) {
+              setValidName(inputValue.name.length >0)
+          }
+          if(inputValue.password) {
+              setValidPassword( inputValue.password.length >= 4)
+          }
+       if(inputValue.confirmPassword){
+            setValidConfirmPassword(inputValue.confirmPassword === inputValue.password)
+        }
+    
+      }, [inputValue]);
+
+      useEffect(() => {
+        window.scrollTo(0,0)
+      }, []);
+
+const checkEmailExits = useCallback(
+    () => {
+        apiUser.get('/allUser').then((res)=>{
+            res.data.forEach(item => {
+                console.log(item.email);
+                console.log(inputValue.email);
+                if(item.email === inputValue.email){
+                    setCheckEmailExist(false)
+                }
+            })
+         }).catch((err)=>{console.log(err);})
+    },
+    [inputValue.email],
+)
+
+
+     useEffect(() => {
+        checkEmailExits()
+     }, [checkEmailExits]);
+    
+
 
     const handleInput = (e) => {
+        checkEmailExits()
         const name = e.target.name
         const newValue = e.target.value
         setInputValue(prev => {
@@ -38,6 +85,7 @@ const Register = () => {
         const valueConfirmPassword = inputValue.confirmPassword
         if(!valueEmail){
             setValidEmail(false)
+            
         }  
         if(!valueName){
             setValidName(false)
@@ -50,39 +98,9 @@ const Register = () => {
         }
       }
  
-
-  useEffect(() => {
-
-    // apiUser.get('/allUser').then((response) => {
-    //     console.log(response.data);
-
-    // }).catch((error) => {
-    //     console.log(error);
-    // })
-
-      if(inputValue.email) {
-          setValidEmail(inputValue.email.includes('@') && inputValue.email.length >=4)
-      }
-      if(inputValue.name) {
-          setValidName(inputValue.name.length >0)
-      }
-      if(inputValue.password) {
-          setValidPassword( inputValue.password.length >= 4)
-      }
-   if(inputValue.confirmPassword){
-        setValidConfirmPassword(inputValue.confirmPassword === inputValue.password)
-    }
-
-  }, [inputValue]);
-
-  useEffect(() => {
-    window.scrollTo(0,0)
-  }, []);
+    
   const handleSubmit = async (e) => {
         e.preventDefault()
-
-
-
         if(!inputValue.email){
             setValidEmail(false)
         }
@@ -94,6 +112,12 @@ const Register = () => {
         }
         if(!inputValue.confirmPassword){
             setValidConfirmPassword(false)
+        }
+
+        if(!checkEmailExist) {
+            // setValidEmail2(true)
+
+            return
         }
 
         if(!inputValue.email.includes('@') || !inputValue.email.length >=4 || !inputValue.name  || !inputValue.password.length >= 4 || !inputValue.password || inputValue.confirmPassword !== inputValue.password) return
@@ -123,9 +147,12 @@ const Register = () => {
      
   }
 
+  
+
     return (
         <div className="login">
             <Alert active={success} navigate={true}>registered successfully</Alert>
+           {/* {!checkEmailExist ?  <Alert active={true} >Email already exists.Please enter another email</Alert> : ''} */}
             <div className="login__overlay"></div>
             <div className="login__container">
             <form className="login__form">
@@ -140,7 +167,8 @@ const Register = () => {
                     onBlur={handleBlurInput}
                     />
                     <div className="login__error">
-                        {validEmail ? '' : <span className="error-message">Please enter a valid email.</span> }
+                        {!checkEmailExist || validEmail ? '' : <span className="error-message">Please enter a valid email.</span> }
+                        {!checkEmailExist?  <span className="error-message">Email already exists.Please enter another email.</span> : ''}
                  
                       
                     </div>

@@ -3,6 +3,8 @@ import {useState,useEffect,useContext} from 'react'
 import Button from '../components/Button'
 import apiUser,{addJwt} from '../api/apiUser'
 import AuthContext from '../context/auth'
+import Alert from './Alert'
+
 
 
 const Login = (props) => {
@@ -14,6 +16,7 @@ const Login = (props) => {
     })
     const [validEmail, setValidEmail] = useState(true)
     const [validPassword, setValidPassword] = useState(true)
+    const [checkUserExist, setCheckUserExist] = useState(true)
 
     const handleInput = (e) => {
         const name = e.target.name
@@ -40,7 +43,7 @@ const Login = (props) => {
   }
 
   useEffect(() => {
-      
+    setCheckUserExist(true)
       if(inputValue.email) {
           setValidEmail(inputValue.email.includes('@') && inputValue.email.length >=4)
       }
@@ -65,6 +68,14 @@ const handleSubmit = async (e) => {
     }
     if(!inputValue.email || !inputValue.email.includes('@') || !inputValue.password ) return
 
+    apiUser.get('/allUser').then((res)=>{
+        res.data.forEach(item => {
+            if(item.email !== inputValue.email || item.password !== inputValue.password){
+                setCheckUserExist(false)
+            }
+    
+        })
+     }).catch((err)=>{console.log(err);})
     
 try {
     const response = await apiUser.post('/login', {
@@ -74,7 +85,7 @@ try {
         authCtx.setUser(response.data.username)
         localStorage.setItem('token',response.data.token)
         addJwt(response.data.token)
-        console.log(response);
+        // console.log(response);
 }    
 catch(err) {
     console.log(err);
@@ -89,6 +100,8 @@ if(token) {
 }
     return (
         <div className="login">
+           {!checkUserExist ? <Alert status='error' active={true}>Wrong email or password</Alert> : ''} 
+
             <div className="login__overlay"></div>
             <div className="login__container">
             <form className="login__form">

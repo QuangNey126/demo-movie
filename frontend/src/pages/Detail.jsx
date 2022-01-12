@@ -14,8 +14,8 @@ import Alert from '../components/Alert'
 
 const Detail = () => {
     const authCtx = useContext(AuthContext)
-    console.log(authCtx);
     const [item, setItem] = useState(null)
+
     const {category,id} = useParams()
     const [modalNoneUser, setModalNoneUser] = useState(false)
     const [modalHaveUser, setModalHaveUser] = useState(false)
@@ -36,20 +36,36 @@ useEffect(() => {
     getDetail()
 }, [category,id]);
 
+
 useEffect(() => {
+    api.get('/userUpdate').then((response) => {
+        authCtx.setMoviePurchase(response.data[0].purchase)
+        authCtx.setMovieRent(response.data[0].rent)
+
+    }).catch((err) => {
+        console.log(err);
+    })
+   }, []);
+
+useEffect(() => {
+
     authCtx.moviePurchase.forEach(item=> {
         if(item.id === id) {
             setBtnPurchased(true)
         }
     })
-}, [authCtx.moviePurchase,id]);
-useEffect(() => {
+
     authCtx.movieRent.forEach(item=> {
         if(item.id === id) {
             setBtnRented(true)
         }
     })
-}, [authCtx.movieRent,id]);
+    
+}, [authCtx.moviePurchase,authCtx.movieRent,id]);
+
+
+console.log(authCtx);
+
 
 const handleRental =  () => {
     if(!authCtx.user){
@@ -77,12 +93,20 @@ const handlePurchase =  () => {
 
 }
 
+if(item){
+
+    console.log(item.release_date);
+}
+
+
+const expired = () => {
+     return setTimeout(()=> {
+        setBtnRented(false)
+        },10000)
+}
 
 
 const handleAgreeRent = async () => {
-
-    
-
     const dateObj = new Date()
     const day = dateObj.getDay() 
     const month = dateObj.getMonth() + 1
@@ -98,6 +122,8 @@ const handleAgreeRent = async () => {
                 
                 idMovie:id,
                 nameMovie:item.title || item.name,
+                overview:item.overview,
+                releaseDate:item.release_date,
                 poster_path:item.backdrop_path,
                 category:category,
                 email:authCtx.user.email,
@@ -108,11 +134,8 @@ const handleAgreeRent = async () => {
             setModalHaveUser(false)
             setSuccessRent(true)
             setBtnRented(true)
-
-            setTimeout(()=> {
-                setBtnRented(false)
-        
-                },10000)
+            expired()
+         
             
 
         }
@@ -138,6 +161,8 @@ const handleAgreePurchase = async () => {
             const response = await api.put(`/purchase`,{
                 idMovie:id,
                 nameMovie:item.title || item.name,
+                overview:item.overview,
+                releaseDate:item.release_date,
                 poster_path:item.backdrop_path,
                 category:category,
                 email:authCtx.user.email,
@@ -155,6 +180,7 @@ const handleAgreePurchase = async () => {
             console.log(err);
         }
 }
+
 
 
     return (
