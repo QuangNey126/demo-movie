@@ -266,6 +266,24 @@ app.put('/rent', async (req, res) => {
 
 })
 
+app.post('/rent', async (req, res) => {
+    const idMovie = req.body.idMovie
+    const email = req.body.email
+
+    const userDelete = await db.users.updateOne(
+        { email: email },
+        {
+            $pull: {
+                rent: { id: idMovie }
+            }
+        }
+    )
+
+    const newUser = await db.users.find({ email: email }).toArray()
+    res.json(newUser[0])
+
+})
+
 app.get('/userUpdate', async (req, res) => {
     const token = req.headers.authorization
     const tokenStr = token.split(" ")[1];

@@ -12,12 +12,12 @@ const MovieLayout = (props) => {
     const [items, setItems] = useState([])
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
-    const [keyword, setKeyword] = useState(undefined);
+    const [keyword, setKeyword] = useState('');
     const [loading, setLoading] = useState(false)
 useEffect(() => {
     const getLists = async () => {
         let response = null;
-        if(keyword === undefined) {
+        if(keyword === '') {
             const params = {}
             switch(props.category) {
                 case category.movie:
@@ -101,7 +101,7 @@ const goToSearchPage = useCallback(
         if(keyword.trim().length > 0 ) {
             navigate(`/${category[props.category]}/search/${keyword}`)
             props.setKeyword(keyword)
-            setKeyword('')
+            // setKeyword('')
         }
     },
     [keyword,navigate,props],
@@ -120,8 +120,6 @@ useEffect(() => {
         document.removeEventListener('keyup', enterEvent);
     };
 }, [keyword, goToSearchPage]);
-
-
 
     return (
         <div className="search mb-5">

@@ -93,16 +93,24 @@ const handlePurchase =  () => {
 
 }
 
-if(item){
 
-    console.log(item.release_date);
-}
-
-
-const expired = () => {
-     return setTimeout(()=> {
+const expired = async (idMovie,email) => {
+try {
+    setTimeout(()=> {
+        api.post('/rent',{
+            idMovie:idMovie,
+            email:email,
+        }).then((response) => {
+                console.log('response',response);
+        }).catch((error) => {
+            console.log(error);
+        })
         setBtnRented(false)
+
         },10000)
+} catch (err) {
+    console.log(err);
+}
 }
 
 
@@ -134,7 +142,7 @@ const handleAgreeRent = async () => {
             setModalHaveUser(false)
             setSuccessRent(true)
             setBtnRented(true)
-            expired()
+            expired(id,authCtx.user.email)
          
             
 
