@@ -12,12 +12,12 @@ const MovieLayout = (props) => {
     const [items, setItems] = useState([])
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
-    const [keyword, setKeyword] = useState('');
+    const [keyword, setKeyword] = useState(undefined);
     const [loading, setLoading] = useState(false)
 useEffect(() => {
     const getLists = async () => {
         let response = null;
-        if(keyword === '') {
+        if(keyword === undefined) {
             const params = {}
             switch(props.category) {
                 case category.movie:

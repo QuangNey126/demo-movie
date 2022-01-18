@@ -40,10 +40,10 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
-        if (!token) {
-            setCheckingLoginDone(true)
-            return
-        }
+        // if (!token) {
+        //     setCheckingLoginDone(true)
+        //     return
+        // }
         api.get('/userUpdate', {
             headers: {
                 Authorization: `Bearer ${token}`

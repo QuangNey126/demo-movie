@@ -102,13 +102,13 @@ console.log(errEditName);
                {!toggleEdit ?   <OutlineButton onClick={handleEdit} className={`${authCtx.user ? 'small' : 'hidden'}`}>Edit</OutlineButton> :  <OutlineButton className={`${authCtx.user ? 'small' : 'hidden'}`} onClick={handleSave}>Save</OutlineButton>}
                 </div>
             </div>
-            <div className="user__password">
+            {/* <div className="user__password">
             <div style={{display:'flex'}} className="user__info__password ">
                 <h4 className="me-2">Password:</h4>
              {!togglePassword ? <h4 className="me-3"> {authCtx.user === null ? '': passwordHide( authCtx.user.password)}</h4> :  <h4 className="me-3"> {authCtx.user === null ? '': passwordShow(authCtx.user.password)}</h4>}  
               {!togglePassword ? <OutlineButton onClick={handlePassword} className={`${authCtx.user ? 'small' : 'hidden'}`} >Show</OutlineButton> : <OutlineButton onClick={handlePassword} className={`${authCtx.user ? 'small' : 'hidden'}`} >Hide</OutlineButton>}  
                 </div>
-            </div>
+            </div> */}
                 </div>
 
                 <div className="user__repository ">
