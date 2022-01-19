@@ -14,10 +14,10 @@ const Card = ({data,category,repository}) => {
        <div className='card' style={{backgroundImage:`url(${bg})`}}>
                 <i className='bx bxl-youtube'></i>
        </div>
-      {!repository? <h5 className="pt-3">{data.title || data.name}</h5> : <div style={{width:'75%',padding:'1.25rem'}}>
-      <h2 style={{fontSize:'2.5rem'}} className="pt-3">{data.title || data.name}</h2>
-        <p style={{margin:'1rem 0',fontSize:'1.25rem',fontStyle:'italic',fontWeight:500}}>{data.releaseDate ? data.releaseDate : 'Upcoming'}</p>
-        <p >{data.overview}</p>
+      {!repository? <h5 className="pt-2">{data.title || data.name}</h5> : <div style={{width:'75%',padding:'1.25rem'}}>
+      <h4 style={{fontSize:'1.75rem'}} className="pt-3">{data.title || data.name}</h4>
+        <p style={{margin:'1rem 0',fontSize:'1rem',fontStyle:'italic',fontWeight:500}}>{data.releaseDate ? data.releaseDate : 'Upcoming'}</p>
+        <p style={{fontSize:'0.8rem'}} >{data.overview}</p>
           </div>} 
         </Link>
     )

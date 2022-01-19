@@ -35,7 +35,7 @@ const [alert, setAlert] = useState(false)
 // const [isLoading, setIsLoading] = useState()
 useEffect(() => {
     const scrollHeader = () => {
-        if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        if(document.body.scrollTop > 1 || document.documentElement.scrollTop > 1 ) {
             headerRef.current.classList.add('shrink')
         }else {
             headerRef.current.classList.remove('shrink')
@@ -71,7 +71,7 @@ const handleSignOut = () => {
                 </li>
             })}
             {/* {authCtx.user ? <div className="user">User</div> : ''} */}
-            {authCtx.user ? <Button onClick={handleSignOut} className='small ms-5'>Sign out</Button>: <Button onClick={()=> navigate('/login')} className='small ms-5'>Sign in</Button>}
+            {authCtx.user ? <Button onClick={handleSignOut} className='small '>Sign out</Button>: <Button onClick={()=> navigate('/login')} className='small ms-5'>Sign in</Button>}
         </ul>
            </div>
           

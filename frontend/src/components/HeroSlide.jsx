@@ -40,7 +40,8 @@ const HeroSlide = () => {
                 slidesPerView={1}
                 navigation
                 // effect="fade"
-                // autoplay={{delay: 3000}}
+                // autoplay={{delay: 5000}}
+                speed={600}
             >
                 {
                     movieItems.map((item, i) => (

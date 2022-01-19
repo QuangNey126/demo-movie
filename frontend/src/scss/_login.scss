@@ -19,27 +19,28 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.795);
-    border-radius: $border-radius;
-    padding: 4rem;
+    border-radius: 30px;
+    padding: 3rem 4rem;
   }
   &__form {
-    width: 25rem;
+    width: 19rem;
   }
   &__header {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
   &__input {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 
     input {
       width: 100%;
-      padding: 16px;
+      padding: 8px 12px;
       border-radius: 50px;
       outline: none;
       border-color: transparent;
       background-color: #dedede;
+      font-size: 0.8rem;
       &:focus {
         background-color: rgb(255, 255, 255);
       }
@@ -47,11 +48,13 @@
   }
   &__btn {
     width: 100%;
+    padding: 6px;
+    font-size: 1rem;
   }
   &__register {
-    margin-top: 3.5rem;
+    margin-top: 2rem;
     &__txt {
-      font-size: 1.25rem;
+      font-size: 1rem;
       color: rgba(255, 255, 255, 0.541);
       a {
         font-weight: 600;
@@ -65,6 +68,6 @@
     color: rgb(255, 5, 5);
     margin-top: 0.5rem;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 }

@@ -12,11 +12,11 @@
     @include flex(center, center);
     padding: 2rem 0;
     img {
-      width: 60px;
+      width: 50px;
       margin-right: 0.5rem;
     }
     a {
-      font-size: 2.5rem;
+      font-size: 1.75rem;
       font-weight: bold;
     }
   }
@@ -33,8 +33,8 @@
 
     a {
       display: block;
-      margin-top: 1.5rem;
-      font-size: 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 1.25rem;
       font-weight: 500;
     }
   }

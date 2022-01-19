@@ -23,17 +23,25 @@
     border-radius: 30px;
     top: 10%;
     box-shadow: 0 0 20px #8ac43f5e;
-    height: 150px;
+    height: 9.375rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: #181818;
     color: $main-color;
+    @include mobile {
+      border-radius: 12px;
+      padding: 0 2.5rem;
+      height: 7.375rem;
+    }
     &.error {
       color: white;
       box-shadow: 0 0 20px rgb(184, 8, 8);
     }
     h2 {
       font-size: 2rem;
+      @include mobile {
+        font-size: 1.5rem;
+      }
     }
   }
 }

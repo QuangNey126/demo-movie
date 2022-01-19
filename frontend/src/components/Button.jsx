@@ -13,7 +13,7 @@ const Button = props => {
 export const OutlineButton = props => {
     return (
         <Button
-            className={`btn-outline ${props.className}`}
+            className={`btn-outline ${props.className} ${props.mobile ? 'mobile' : ''}`}
             onClick={props.onClick ? () => props.onClick() : null}
         >
             {props.children}

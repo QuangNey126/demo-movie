@@ -13,13 +13,15 @@ const User = () => {
     const nameRef = useRef()
    
     const authCtx = useContext(AuthCtx)
-    console.log('authCtx',authCtx);
     // const pswStr = authCtx.user.password
     const [toggleEdit, setToggleEdit] = useState(false)
     const [errEditName, setErrEditName] = useState(true)
-    const [togglePassword, setTogglePassword] = useState(false)
     const [toggleSelect, setToggleSelect] = useState(false)
     const [activeBtn, setActiveBtn] = useState(false)
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, []);
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -39,7 +41,6 @@ const User = () => {
     const handleEdit = () => {
         setToggleEdit(!toggleEdit)
     }
-console.log(errEditName);
     const handleSave = () => {
         if(authCtx.user){
             setToggleEdit(!toggleEdit)
@@ -64,20 +65,6 @@ console.log(errEditName);
 
     }
 
-    const passwordHide = (password) => {
-        const arrPsw = password.split('')
-        const hide = arrPsw.map(item => item = '*').join('')
-        return hide
-    }
-    const passwordShow = (pswStr) => {
-
-        return pswStr
-    }
-
-    const handlePassword = () => {
-        setTogglePassword(!togglePassword)
-
-    }
 
     const handleToggleBtn = (e) => {
         setToggleSelect(!toggleSelect)
@@ -90,29 +77,23 @@ console.log(errEditName);
         <div className="user">
             <div className="container">
                 <div className="user__infoo mb-5">
-                    <h1 className="mb-5">Info user:</h1>
+                    <h3 className="mb-5">Info user:</h3>
             <div className="user__email mb-4">
-                <h4 style={{letterSpacing:1}}>{authCtx.user ? `Email:  ${authCtx.email === null ? '': authCtx.user.email}` : ''}</h4>
+                <h5 style={{letterSpacing:1}}>Email: {authCtx.user ? `  ${authCtx.email === null ? '': authCtx.user.email}` : ''}</h5>
             </div>
             <div className="user__info">
                 <div style={{display:'flex'}} className="user__info__name mb-4">
-                <h4 className="me-2">Username:</h4>
-             { !toggleEdit ? <h4 ref={nameRef} className="me-3"> {authCtx.user === null ? '': authCtx.user.name}</h4> : <input ref={inputRef} placeholder={authCtx.user.name} /> }
+                {/* <h5 className="me-2"></h5> */}
+             { !toggleEdit ? <h5 ref={nameRef} className="me-3">Username: {authCtx.user === null ? '': authCtx.user.name}</h5> : <input ref={inputRef} placeholder={authCtx.user.name} /> }
                 {!errEditName ? <Alert status='error' editName={setErrEditName} active={true}>User name must greater 1 character</Alert> : null}
                {!toggleEdit ?   <OutlineButton onClick={handleEdit} className={`${authCtx.user ? 'small' : 'hidden'}`}>Edit</OutlineButton> :  <OutlineButton className={`${authCtx.user ? 'small' : 'hidden'}`} onClick={handleSave}>Save</OutlineButton>}
                 </div>
             </div>
-            {/* <div className="user__password">
-            <div style={{display:'flex'}} className="user__info__password ">
-                <h4 className="me-2">Password:</h4>
-             {!togglePassword ? <h4 className="me-3"> {authCtx.user === null ? '': passwordHide( authCtx.user.password)}</h4> :  <h4 className="me-3"> {authCtx.user === null ? '': passwordShow(authCtx.user.password)}</h4>}  
-              {!togglePassword ? <OutlineButton onClick={handlePassword} className={`${authCtx.user ? 'small' : 'hidden'}`} >Show</OutlineButton> : <OutlineButton onClick={handlePassword} className={`${authCtx.user ? 'small' : 'hidden'}`} >Hide</OutlineButton>}  
-                </div>
-            </div> */}
+          
                 </div>
 
                 <div className="user__repository ">
-                    <h1 className="mb-5">Repository: </h1>
+                    <h3 className="mb-5">Repository: </h3>
                     <div className="user__repository__container">
                         <div className="user__repository__container__select">
                      {!activeBtn?<Button className='' onClick={handleToggleBtn}>Rented</Button> : <OutlineButton onClick={handleToggleBtn} className="">Rented</OutlineButton>}   

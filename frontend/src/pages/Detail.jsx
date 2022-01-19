@@ -64,7 +64,6 @@ useEffect(() => {
 }, [authCtx.moviePurchase,authCtx.movieRent,id]);
 
 
-console.log(authCtx);
 
 
 const handleRental =  () => {
@@ -107,7 +106,7 @@ try {
         })
         setBtnRented(false)
 
-        },10000)
+        },30000)
 } catch (err) {
     console.log(err);
 }
@@ -177,7 +176,6 @@ const handleAgreePurchase = async () => {
                 date:date,
                 time:time
             })
-            console.log('response',response);
             authCtx.setMoviePurchase(callback => [...callback,response.data])
             setModalHaveUser(false)
             setSuccessPurchase(true)
@@ -212,13 +210,13 @@ const handleAgreePurchase = async () => {
                         <div className="movie-content__info__overview">{item.overview}</div>
                         <div className="movie-content__info__cast">
                             <div className="movie-content__info__cast__header">
-                                <h2>Cast</h2>
+                                <h4>Cast</h4>
                                 <CastList id={item.id}/>
                             </div>
                         </div>
                     <div className="movie-content__info__button">
-                           {btnRented ?<Button  className='disable me-3'>  rent for 10 seconds: 1$</Button> : <Button onClick={handleRental} className='me-3'>  rent for 10 seconds: 1$</Button> }  
-                               {btnPurchased ? <OutlineButton className='disable'>purchase: 5$</OutlineButton> : <OutlineButton onClick={handlePurchase}>purchase: 5$</OutlineButton>} 
+                           {btnRented ?<Button  className='disable me-3'>  Rent for 30 seconds</Button> : <Button onClick={handleRental} className='me-3'>  Rent for 30 seconds</Button> }  
+                               {btnPurchased ? <OutlineButton className='disable'>Purchase</OutlineButton> : <OutlineButton onClick={handlePurchase}>Purchase</OutlineButton>} 
 
                                 <ModalNotice active={modalNoneUser}  >
                                     <ModalNoticeContent modalActive={setModalNoneUser}>You have to sign in first</ModalNoticeContent>

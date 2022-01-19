@@ -28,6 +28,9 @@ function App() {
       <Header />
       <Router />
       <Footer />
+      <marquee direction="left" scrollamount="3">
+        Please reload the page if the image fails to load and when logged out.
+    </marquee>
     </BrowserRouter>
   );
 }

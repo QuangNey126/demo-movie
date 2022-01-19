@@ -1,19 +1,24 @@
+// const http = require("http");
 const express = require('express');
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const { connectToMongo } = require('./database');
 const { db } = require('./database/index')
 const nodemailer = require('nodemailer');
+// const server = http.createServer(app);
+
 
 const api = require('./api')
 
 const app = express();
 
-app.use(
-    cors({
-        origin: "http://localhost:3000",
-    })
-);
+// app.use(
+//     cors({
+//         origin: "*",
+//     })
+// );
+
+app.use(cors())
 
 app.use(express.json());
 
@@ -289,6 +294,10 @@ app.get('/userUpdate', async (req, res) => {
     const tokenStr = token.split(" ")[1];
     const userUpdate = await db.users.find({ token: tokenStr }).toArray()
     res.json(userUpdate)
+})
+
+app.get('/', (req, res) => {
+    res.send('Hello word! Hello')
 })
 
 

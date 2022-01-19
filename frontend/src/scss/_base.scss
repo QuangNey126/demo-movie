@@ -31,11 +31,26 @@ body {
   }
 }
 
+marquee {
+  font-size: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: white;
+  z-index: 100000;
+  height: 2rem;
+  @include mobile {
+    top: 2px;
+  }
+}
 .container {
-  max-width: 1400px;
+  max-width: 1180px;
   margin: auto;
 }
 
+h5 {
+  font-size: 16px;
+}
 section {
   margin-top: 3rem;
 }

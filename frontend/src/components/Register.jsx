@@ -21,7 +21,6 @@ const Register = () => {
     const [success, setSuccess] = useState(false)
     const [checkEmailExist, setCheckEmailExist] = useState(true)
     // const [validEmail2, setValidEmail2] = useState(false)
-console.log('checkEmailExist',checkEmailExist);
 
     useEffect(() => {
         setCheckEmailExist(true)
@@ -48,8 +47,7 @@ const checkEmailExits = useCallback(
     () => {
         apiUser.get('/allUser').then((res)=>{
             res.data.forEach(item => {
-                console.log(item.email);
-                console.log(inputValue.email);
+               
                 if(item.email === inputValue.email){
                     setCheckEmailExist(false)
                 }
@@ -218,7 +216,7 @@ const checkEmailExits = useCallback(
                    
                  </div>
                 </div>
-                <Button onClick={handleSubmit} className="login__btn mt-5">Register</Button>
+                <Button onClick={handleSubmit} className="login__btn mt-3">Register</Button>
             </form>
             <div className="login__register">
                 <div className="login__register__txt">

@@ -10,10 +10,14 @@
 
 .search__input {
   width: 100%;
-  padding: 12px;
+  padding: 8px 16px;
   border-radius: 50px;
   border: 1px solid transparent;
   outline: none;
+  font-size: 0.8rem;
+  @include mobile {
+    padding: 4px 16px;
+  }
   &:focus {
     border: 1px solid $main-color;
   }
@@ -23,12 +27,16 @@
   right: 0;
   border: none;
   outline: none;
-  padding: 12px 32px;
+  padding: 8px 20px;
   border-radius: 50px;
   background-color: $main-color;
   color: $white;
   border: 1px solid $main-color;
   box-shadow: 0px 0px 7px 4px #00ff154d;
+  font-size: 0.8rem;
+  @include mobile {
+    padding: 4px 16px;
+  }
   &:hover {
     box-shadow: 0px 0px 7px 8px #00ff154d;
     transition: 0.3s;

@@ -21,7 +21,7 @@ const Home = () => {
                 <div className="section__header mb-3">
                     <h2>Trending movies</h2>
                     <Link to='/movie'>
-                        <OutlineButton className="small">View more</OutlineButton>
+                        <OutlineButton className="small mobile">View more</OutlineButton>
                     </Link>
                 </div>
                     <MovieList category={category.movie} type={movieType.popular}/>
@@ -31,7 +31,7 @@ const Home = () => {
                 <div className="section__header mb-3">
                     <h2>Top rated movies</h2>
                     <Link to='/movie'>
-                        <OutlineButton className="small">View more</OutlineButton>
+                        <OutlineButton className="small mobile">View more</OutlineButton>
                     </Link>
                 </div>
                     <MovieList category={category.movie} type={movieType.top_rated}/>
@@ -41,7 +41,7 @@ const Home = () => {
                 <div className="section__header mb-3">
                     <h2>Trending tv</h2>
                     <Link to='/tv'>
-                        <OutlineButton className="small">View more</OutlineButton>
+                        <OutlineButton className="small mobile">View more</OutlineButton>
                     </Link>
                 </div>
                     <MovieList category={category.tv} type={tvType.popular}/>
@@ -51,7 +51,7 @@ const Home = () => {
                 <div className="section__header mb-3">
                     <h2>Top rate tv</h2>
                     <Link to='/tv'>
-                        <OutlineButton className="small">View more</OutlineButton>
+                        <OutlineButton className="small mobile">View more</OutlineButton>
                     </Link>
                 </div>
                     <MovieList category={category.tv} type={tvType.top_rated}/>

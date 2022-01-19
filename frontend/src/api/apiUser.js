@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const apiUser = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://themoviedb1108.herokuapp.com/",
+    // baseURL: "http://localhost:5000"
 });
 
 const addJwt = (jwt) => {

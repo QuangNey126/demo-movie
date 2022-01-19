@@ -53,7 +53,7 @@ const UserProvider = ({ children }) => {
             setMovieRent(response.data[0].rent)
 
         }).catch((err) => {
-            console.log(err);
+            
         })
 
         return () => {
